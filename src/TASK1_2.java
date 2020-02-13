@@ -15,6 +15,42 @@ public class TASK1_2 {
         return false;
     }
 
+    public static boolean iterativeBinarySearch(int[] arr, int el) {
+        int firstIndex = 0;
+        int lastIndex = arr.length - 1;
+
+        while (firstIndex <= lastIndex) {
+            int middleIndex = (firstIndex + lastIndex) / 2;
+
+            if (arr[middleIndex] == el) {
+                return true;
+            } else if (arr[middleIndex] < el)
+                firstIndex = middleIndex + 1;
+
+            else if (arr[middleIndex] > el)
+                lastIndex = middleIndex - 1;
+
+        }
+
+        return false;
+    }
+
+    public static boolean recursiveBinarySearch(int[] arr, int firstElement, int lastElement, int el) {
+
+        if (lastElement >= firstElement) {
+            int mid = firstElement + (lastElement - firstElement) / 2;
+
+            if (arr[mid] == el)
+                return true;
+
+            if (arr[mid] > el)
+                return recursiveBinarySearch(arr, firstElement, mid - 1, el);
+
+            return recursiveBinarySearch(arr, mid + 1, lastElement, el);
+        }
+
+        return false;
+    }
 
 
     public static void main(String[] args) {
@@ -27,8 +63,14 @@ public class TASK1_2 {
         Scanner scan = new Scanner(System.in);
         int el = scan.nextInt();
 
-        boolean status = linearSearch(arr, el);
-        print(el, status);
+        boolean status0 = linearSearch(arr, el);
+        print(el, status0);
+
+        boolean status1 = iterativeBinarySearch(arr, el);
+        print(el, status1);
+
+        boolean status2 = recursiveBinarySearch(arr, arr[0],arr.length, el);
+        print(el, status2);
 
     }
 

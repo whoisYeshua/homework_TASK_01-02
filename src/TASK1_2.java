@@ -15,6 +15,7 @@ public class TASK1_2 {
         return false;
     }
 
+
     public static boolean iterativeBinarySearch(int[] arr, int el) {
         int firstIndex = 0;
         int lastIndex = arr.length - 1;
@@ -35,27 +36,10 @@ public class TASK1_2 {
         return false;
     }
 
-    public static boolean recursiveBinarySearch(int[] arr, int firstElement, int lastElement, int el) {
-
-        if (lastElement >= firstElement) {
-            int mid = firstElement + (lastElement - firstElement) / 2;
-
-            if (arr[mid] == el)
-                return true;
-
-            if (arr[mid] > el)
-                return recursiveBinarySearch(arr, firstElement, mid - 1, el);
-
-            return recursiveBinarySearch(arr, mid + 1, lastElement, el);
-        }
-
-        return false;
-    }
-
 
     public static void main(String[] args) {
-        int[] arr = new int[100000000];
-        for (int i = 0; i < 100000000; i++) {
+        int[] arr = new int[10];
+        for (int i = 0; i < 10; i++) {
             arr[i] = i;
         }
 
@@ -63,14 +47,17 @@ public class TASK1_2 {
         Scanner scan = new Scanner(System.in);
         int el = scan.nextInt();
 
+        long time = System.nanoTime();
         boolean status0 = linearSearch(arr, el);
         print(el, status0);
+        time = System.nanoTime() - time;
+        System.out.printf("Время на выполнение линейным поиском %d нс\n\n", time );
 
+        long time1 = System.nanoTime();
         boolean status1 = iterativeBinarySearch(arr, el);
         print(el, status1);
-
-        boolean status2 = recursiveBinarySearch(arr, arr[0],arr.length, el);
-        print(el, status2);
+        time1 = System.nanoTime() - time1;
+        System.out.printf("Время на выполнение иттеративным бинарным поиском %d нс\n", time1);
 
     }
 

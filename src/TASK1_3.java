@@ -12,17 +12,28 @@ public class TASK1_3 {
     public static void main(String[] args) {
 
         Cylinder cylinder = new Cylinder(10, 20);
-        Ball ball = new Ball(15);
+        Ball ball = new Ball(10);
         Pyramid pyramid = new Pyramid(15, 23);
-        Box box = new Box(190); // Так как для куба нам не говорили, что нужно считать объем, сразу передадим ему это значение
+        Box box = new Box(10000); // Так как для куба нам не говорили, что нужно считать объем, сразу передадим ему это значение
 
+        System.out.println(box.Add(ball)); // ok
+        System.out.println(box.Add(cylinder)); // ok
+        System.out.println(box.Add(pyramid));
 
     }
 }
 
 abstract class Shape {
 
-    private double volume; // Ограничиваем видимость переменной в пределах этого класса через protect, модификатор задан в условиях задачи
+    protected double volume; // Ограничиваем видимость переменной в пределах этого класса через protect, модификатор задан в условиях задачи
+
+    public Shape(double volume) {
+        this.volume = volume;
+    }
+
+    public Shape() {
+        volume = 0;
+    }
 
     public abstract double getVolume(); // Создаем абстрактный метод getVolume, который потом будут переопределять наследники нашего класса Shape
 }
@@ -90,19 +101,17 @@ class Pyramid extends Shape {
 
 class Box extends Shape {
 
-    private double volume;
-    private ArrayList<Shape> figure = new ArrayList<>();
-
     public Box(double volume) {
-        this.volume = volume;
+        super(volume);
     }
 
     public boolean Add (Shape shape) {
         if (volume >= shape.getVolume()) {
-            figure.add(shape);
             volume -= shape.getVolume();
+            System.out.printf("Status of adding %s - ", shape);
             return true;
         } else {
+            System.out.printf("Status of adding %s - ", shape);
             return false;
         }
     }

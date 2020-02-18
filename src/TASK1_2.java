@@ -16,7 +16,7 @@ public class TASK1_2 {
         return false;
     }
 
-    // Алгоритм делит входной массив на равные половины, и с каждой итерацией сравнивает элемент, который ищем, с элементом в середине.
+    // Алгоритм делит входной массив на равные половины, и с каждой итерацией сравнивает элемент, который ищем, с элементом в середине, временная сложность O(log(N)).
     public static boolean iterativeBinarySearch(int[] arr, int el) {
         int firstIndex = 0;
         int lastIndex = arr.length - 1;
@@ -52,18 +52,18 @@ public class TASK1_2 {
         int el = scan.nextInt();
 
         // Записываем в переменню булевую переменную результат метода linearSearch. В метод linearSearch передаем наш массив и значение, которое ищем.
-        long time = System.nanoTime();
-        boolean status0 = linearSearch(arr, el);
-        print(el, status0);
-        time = System.nanoTime() - time;
-        System.out.printf("Время на выполнение линейным поиском %d нс\n\n", time);
+        long linearTime = System.nanoTime();
+        boolean linearStatus = linearSearch(arr, el);
+        print(el, linearStatus);
+        linearTime = System.nanoTime() - linearTime;
+        System.out.printf("Время на выполнение линейным поиском %d нс\n\n", linearTime);
 
         // Реализовали измерение времени через метод System.nanoTime() (он более подробный в данном случае (в отличие от System.currentTimeMillis()), так как поиск занимал меньше 1 мс), перед вызовом метода записываем текущее время в нс, после выполнения тоже записываем и потом просто вычитаем
-        long time1 = System.nanoTime();
-        boolean status1 = iterativeBinarySearch(arr, el);
-        print(el, status1);
-        time1 = System.nanoTime() - time1;
-        System.out.printf("Время на выполнение итеративным бинарным поиском %d нс\n", time1);
+        long iterativeBinaryTime = System.nanoTime();
+        boolean iterativeBinaryStatus = iterativeBinarySearch(arr, el);
+        print(el, iterativeBinaryStatus);
+        iterativeBinaryTime = System.nanoTime() - iterativeBinaryTime;
+        System.out.printf("Время на выполнение итеративным бинарным поиском %d нс\n", iterativeBinaryTime);
 
     }
 

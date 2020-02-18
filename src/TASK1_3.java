@@ -6,7 +6,6 @@
 Если места для добавления новой фигуры не хватает, то метод должен
 вернуть false.*/
 
-import java.util.ArrayList;
 
 public class TASK1_3 {
     public static void main(String[] args) {
@@ -16,8 +15,8 @@ public class TASK1_3 {
         Pyramid pyramid = new Pyramid(15, 23);
         Box box = new Box(10000); // Так как для куба нам не говорили, что нужно считать объем, сразу передадим ему это значение
 
-        System.out.println(box.Add(ball)); // ok
-        System.out.println(box.Add(cylinder)); // ok
+        System.out.println(box.Add(ball));
+        System.out.println(box.Add(cylinder));
         System.out.println(box.Add(pyramid));
 
     }
@@ -25,14 +24,16 @@ public class TASK1_3 {
 
 abstract class Shape {
 
-    protected double volume; // Ограничиваем видимость переменной в пределах этого класса через protect, модификатор задан в условиях задачи
+    protected double volume; // Ограничиваем видимость переменной в пределах этого класса и его наследников через protected, модификатор задан в условиях задачи
 
+    //Так как переменная volume указана в классе Shape, создадим два конструктора, этот для класса Box (где будет инициализироваться пременная volume)
+    // и один пустой для остальных классов, которым объем не нужен (если в иерархии классов конструктор суперкласса требует передачи ему параметров, все подклассы должны передавать эти параметры - для этого и нужен пустой)
     public Shape(double volume) {
         this.volume = volume;
     }
 
+    // Создали класс (конструктор) без параметров. Если метод super() не применяется, программа использует конструктор каждого суперкласса, заданный по умолчанию или не содержащий параметров.
     public Shape() {
-        volume = 0;
     }
 
     public abstract double getVolume(); // Создаем абстрактный метод getVolume, который потом будут переопределять наследники нашего класса Shape
@@ -48,7 +49,7 @@ abstract class SolidOfRevolution extends Shape {
     }
 
     // Метод задан в условиях задачи
-    public double getRadius(){
+    public double getRadius() {
         return radius;
     }
 
@@ -88,7 +89,7 @@ class Pyramid extends Shape {
     private double s;
     private double h;
 
-    public Pyramid(double s, double h){
+    public Pyramid(double s, double h) {
         this.s = s;
         this.h = h;
     }
@@ -101,11 +102,12 @@ class Pyramid extends Shape {
 
 class Box extends Shape {
 
+    // Из-за этого конструктора и создавали конструктор с параметром в суперклассе Shape
     public Box(double volume) {
         super(volume);
     }
 
-    public boolean Add (Shape shape) {
+    public boolean Add(Shape shape) {
         if (volume >= shape.getVolume()) {
             volume -= shape.getVolume();
             System.out.printf("Status of adding %s - ", shape);
@@ -116,7 +118,6 @@ class Box extends Shape {
         }
     }
 
-    // если метод помечен словом abstract (здесь я говорю о getVolume), каждый класс-наследник должен его реализовать или быть объявленным как абстрактный. Иначе компилятор выбросит ошибку. Поэтому делаем наследование, хоть и не будем его использовать
     @Override
     public double getVolume() {
         return volume;
